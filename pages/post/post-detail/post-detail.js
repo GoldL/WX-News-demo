@@ -141,5 +141,25 @@ Page({
         }
       },
     })
+  },
+  onShareTap: function (event) {
+    let shareList = ['分享给微信好友', '分享到朋友圈', '分享到QQ', '分享到微博']
+    wx.showActionSheet({
+      itemList: shareList,
+      itemColor: "#405f80",
+      success: function (res) {
+        wx.showModal({
+          // res.cancel 用户是不是点击了取消按钮 res.tapIndex 数组元素的序号，从0开始
+          title: shareList[res.tapIndex],
+          content: '现在无法实现分享功能，什么时候能支持呢'
+        })
+      }
+    })
+  },
+  /*
+    * 定义页面分享函数
+    */
+  onShareAppMessage: function (event) {
+    return { title: this.data.postData.title, desc: this.data.postData.content, path: '/pages/posts/post-detail/post-detail?id=' + this.data.currentPostId }
   }
 })

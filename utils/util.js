@@ -1,0 +1,35 @@
+//封装的get请求
+function http(url, callbackFun) {
+  wx.request({
+    url: url,
+    method: 'GET',
+    header: {
+      // 'content-type': 'application/json'
+      "Content-Type": "json"
+    },
+    success: function (res) {
+      callbackFun(res)
+    },
+    fail: function (error) {
+      wx.hideLoading()
+      console.log(error)
+    }
+  })
+}
+//评论星星处理 
+function convertToStarsArray(stars) {
+  let num = stars.toString().substring(0, 1)
+  let arr = []
+  for (let i = 1; i <= 5; i++) {
+    if (i <= num) {
+      arr.push(1)
+    } else {
+      arr.push(0)
+    }
+  }
+  return arr
+}
+module.exports = {
+  http: http,
+  convertToStarsArray: convertToStarsArray,
+}

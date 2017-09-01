@@ -1,5 +1,5 @@
 // pages/post/post.js
-var postsData = require('../../data/posts-data.js')
+const postsData = require('../../data/posts-data.js')
 
 Page({
 
@@ -17,11 +17,16 @@ Page({
     });
   },
   onPostTap: function (event) {
-    var postId = event.currentTarget.dataset.postid
+    let postId = event.currentTarget.dataset.postid
+    wx.navigateTo({
+      url: '../post/post-detail/post-detail?id=' + postId
+    })
+  },
+  onSweiperTap: function (event) {
+    let postId = event.target.dataset.postid
     wx.navigateTo({
       url: '../post/post-detail/post-detail?id=' + postId
     })
   }
-
 
 })

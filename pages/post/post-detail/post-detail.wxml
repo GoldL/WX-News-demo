@@ -17,5 +17,5 @@
         </view>
         <view class="horizon"></view>
     </view>
-    <text class="detail">{{postData.content}}</text>
+    <text class="detail">{{postData.detail}}</text>
 </view>

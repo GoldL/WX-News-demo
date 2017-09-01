@@ -13,9 +13,15 @@ Page({
     //   url: '../post/post',
     // })
 
-    //无返回的跳转
-    wx.redirectTo({
+    //无返回的跳转，跳转的应用内非 tabBar 的页面的路径
+    // wx.redirectTo({
+    //   url: '../post/post',
+    // })
+
+    //跳转到tabBar页面
+    wx.switchTab({
       url: '../post/post',
     })
+
   }
 })
