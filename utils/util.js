@@ -8,7 +8,14 @@ function http(url, callbackFun) {
       "Content-Type": "json"
     },
     success: function (res) {
-      callbackFun(res)
+      if (200 !== res.statusCode) {
+        wx.showToast({
+          title: res.errMsg,
+          icon: 'loading',
+          duration: 2000
+        })
+      } 
+      callbackFun(res.data)
     },
     fail: function (error) {
       wx.hideLoading()

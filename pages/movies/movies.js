@@ -9,7 +9,10 @@ Page({
   data: {
     inTheaters: {},
     comingSoon: {},
-    top250: {}
+    top250: {},
+    searchResult: {},
+    containerShow: true,
+    searchPanelShow: false
   },
 
   /**
@@ -32,11 +35,7 @@ Page({
     Util.http(url, function (data) {
       wx.hideLoading()
       // console.log(data)
-      if (data.statusCode === 200) {
-        thiz.processDoubanData(data.data, settedKey, categoryTitle)
-      } else {
-        console.log('请求数据出错了')
-      }
+      thiz.processDoubanData(data, settedKey, categoryTitle)
     })
   },
   processDoubanData: function (moviesDouban, settedKey, categoryTitle) {
@@ -63,5 +62,37 @@ Page({
       movies: movies
     }
     this.setData(readyData)
-  }
+  },
+  onMoreTap: function (event) {
+    let categoryTitle = event.currentTarget.dataset.category
+    wx.navigateTo({
+      url: 'more-movie/more-movie?category=' + categoryTitle
+    })
+  },
+  onMovieTap: function (event) {
+    let movieId = event.currentTarget.dataset.movieId
+    wx.navigateTo({
+      url: 'movie-detail/movie-detail?id=' + movieId
+    })
+  },
+  onBindBlur: function (event) {
+    let text = event.detail.value
+    let searchUrl = app.globalData.doubanBase + "/v2/movie/search?q=" + text
+    this.getMovieListData(searchUrl, 'searchResult', '')
+  },
+  onCancelImgTap: function (event) {
+    this.setData({
+      containerShow: true,
+      searchPanelShow: false,
+      searchResult: {}
+    }
+    )
+  },
+
+  onBindFocus: function (event) {
+    this.setData({
+      containerShow: false,
+      searchPanelShow: true
+    })
+  },
 })

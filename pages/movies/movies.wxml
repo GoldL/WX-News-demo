@@ -1,13 +1,23 @@
 <!--pages/movies/movies.wxml-->
 <import src='movie-list/movie-list-template.wxml' />
-<view class='container'>
-    <view class='movies-template'>
-        <template is='movieListTemplate' data='{{...inTheaters}}' />
-    </view>
-    <view class='movies-template'>
-        <template is='movieListTemplate' data='{{...comingSoon}}' />
-    </view>
-    <view class='movies-template'>
-        <template is='movieListTemplate' data='{{...top250}}' />
-    </view>
+<import src='movies-grid/movies-grid-template.wxml' />
+<view class='search'>
+  <icon type='search' size='13' class='search-img' color='#405f80'></icon>
+  <input type='text' placeholder='请输入电影名字' placeholder-class='placeholder'
+  bindfocus='onBindFocus' bindblur='onBindBlur'></input>
+  <image class='xx-img' src="/images/icon/xx.png" wx:if="{{searchPanelShow}}" bindtap="onCancelImgTap"></image>
+</view>
+<view class='container' wx:if="{{containerShow}}">
+  <view class='movies-template'>
+    <template is='movieListTemplate' data='{{...inTheaters}}' />
+  </view>
+  <view class='movies-template'>
+    <template is='movieListTemplate' data='{{...comingSoon}}' />
+  </view>
+  <view class='movies-template'>
+    <template is='movieListTemplate' data='{{...top250}}' />
+  </view>
+</view>
+<view class='search-panel' wx:if="{{searchPanelShow}}"> 
+  <template is="moviesGridTemplate" data="{{...searchResult}}"/>
 </view>
