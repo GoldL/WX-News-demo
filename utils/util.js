@@ -36,7 +36,32 @@ function convertToStarsArray(stars) {
   }
   return arr
 }
+//处理影人
+function convertToCastString(casts) {
+  let castsjoin = ''
+  for (let idx in casts) {
+    castsjoin = castsjoin + casts[idx].name + '/'
+  }
+  return castsjoin.substring(0, castsjoin.length-2)
+}
+
+//处理演员照片
+function convertToCastInfos(casts) {
+  let castsArray = []
+  for (let idx in casts) {
+    let cast = {
+      img: casts[idx].avatars ? casts[idx].avatars.large : '',
+      name: casts[idx].name,
+      id: idx
+    }
+    castsArray.push(cast)
+  }
+  return castsArray
+}
+
 module.exports = {
   http: http,
   convertToStarsArray: convertToStarsArray,
+  convertToCastString: convertToCastString,
+  convertToCastInfos: convertToCastInfos
 }
